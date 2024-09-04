@@ -4,6 +4,12 @@ import java.util.*;
 
 public class PhoneBook {
 
+    private Map<String,Integer> map = new HashMap<>();
+
+//    public Map<String, Integer> getMap() {
+//        return map;
+//    }
+
     public void addContact(String name, String phone) {
         // TODO проверь корректность формата имени и телефона
         // TODO (рекомендуется написать отдельные методы для проверки является строка именем/телефоном)
@@ -25,6 +31,7 @@ public class PhoneBook {
     public Set<String> getAllContacts() {
         // TODO формат одного контакта "Имя - Телефон"
         // TODO если контактов нет в телефонной книге - вернуть пустой TreeSet
-        return null;
+
+        return new TreeSet<>();
     }
 }
