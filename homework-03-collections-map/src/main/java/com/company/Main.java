@@ -14,6 +14,12 @@ public class Main {
             String in = reader.readLine();
             if (in.equals("LIST")) {
                 phoneBook.getAllContacts();
+            } else if (phoneBook.isNumber(in)) {
+                phoneBook.getContactByPhone(in);
+            } else if (phoneBook.isSName(in)) {
+                phoneBook.getContactByName(in);
+            } else {
+                System.out.println("Неверный формат ввода");
             }
 
         } catch (IOException e) {
