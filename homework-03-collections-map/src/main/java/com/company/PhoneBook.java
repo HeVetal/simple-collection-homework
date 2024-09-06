@@ -2,19 +2,26 @@ package com.company;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class PhoneBook {
 
-    private Map<String,Integer> map = new HashMap<>();
-
-//    public Map<String, Integer> getMap() {
-//        return map;
-//    }
+    private Map<String, Set<String>> map = new HashMap<>();
 
     public void addContact(String name, String phone) {
         // TODO проверь корректность формата имени и телефона
         // TODO (рекомендуется написать отдельные методы для проверки является строка именем/телефоном)
         // TODO если такой номер уже есть в списке, то перезаписать имя абонента
+
+        if (isSName(name) && isPhone(phone)) {
+            map = map.entrySet().stream()
+                    .peek(entry -> entry.getValue().remove(phone))
+                    .filter(entry -> !entry.getValue().isEmpty())
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+            map.putIfAbsent(name, new HashSet<>());
+            map.get(name).add(phone);
+        }
     }
 
     public Set<String> getContactByName(String name) {
@@ -36,11 +43,11 @@ public class PhoneBook {
         return new TreeSet<>();
     }
 
-    public boolean isSName(String name){
-        return Pattern.matches("[a-zA-Z]+", name);
+    public boolean isSName(String name) {
+        return Pattern.matches("^[a-zA-Zа-яА-ЯёЁ]+$", name);
     }
 
-    public boolean isNumber(String phone){
-        return Pattern.matches("\\d+", phone);
+    public boolean isPhone(String phone) {
+        return Pattern.matches("\\d{11}", phone);
     }
 }
