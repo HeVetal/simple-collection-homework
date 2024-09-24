@@ -27,50 +27,63 @@ public class PhoneBook {
     public Set<String> getContactByName(String name) {
         // TODO формат одного контакта "Имя - Телефон"
         // TODO если контакт не найден - вернуть пустой TreeSet
-        if (isSName(name) && map.containsKey(name)){
-            Set<String> strings = map.get(name);
-            return strings;
-        } else {
-            ConsoleHelper.writeMessage("Такого имени в телефонной книге нет.");
-            ConsoleHelper.writeMessage("Введите номер телефона для абонента \"" + name + "\": ");
-            addContact(name, ConsoleHelper.readString());
-//            String phone = ConsoleHelper.readString();
-//            map.get(name).add(phone);
-            ConsoleHelper.writeMessage("Контакт сохранен!" + System.lineSeparator());
+        if (!map.containsKey(name)) {
+            return new TreeSet<>();
         }
-        return new TreeSet<>();
+        return Set.of(name + " - " + String.join(", ", map.get(name)));
     }
+//        } else {
+//            ConsoleHelper.writeMessage("Такого имени в телефонной книге нет.");
+//            ConsoleHelper.writeMessage("Введите номер телефона для абонента \"" + name + "\": ");
+//            addContact(name, ConsoleHelper.readString());
+////            String phone = ConsoleHelper.readString();
+////            map.get(name).add(phone);
+//            ConsoleHelper.writeMessage("Контакт сохранен!" + System.lineSeparator());
+
 
     public String getContactByPhone(String phone) {
         // TODO формат одного контакта "Имя - Телефон"
         // TODO если контакт не найдены - вернуть пустую строку
-        if(isPhone(phone) && map.containsValue(phone)){
-            for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
-                Set<String> value = entry.getValue();
-                for (String string : value) {
-                    if(string.equals(phone)){
-                        return entry.getKey();
-                    }
-                }
-            }
-        } else {
-            ConsoleHelper.writeMessage("Такого номера нет в телефонной книге.");
-            ConsoleHelper.writeMessage("Введите имя абонента для номера “" + phone + "”:");
-            addContact(ConsoleHelper.readString(), phone);
-            ConsoleHelper.writeMessage("Контакт сохранен!");
-            //ConsoleHelper.writeMessage(map.get());
-        }
-        return "";
+
+        //if(map.containsValue(phone)){
+
+//        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
+//            if (entry.getValue().contains(phone)) {
+//                return entry.getKey() + " " + String.join(", ", entry.getValue());
+//            }
+//        }
+//        return "";
+        return map.entrySet().stream()
+                .filter(entry -> entry.getValue().contains(phone))
+                .findFirst()
+                .map(entry -> entry.getKey() + " - " + String.join(", ", entry.getValue()))
+                .orElse("");
     }
+
+    //}
+    //else {
+//        ConsoleHelper.writeMessage("Такого номера нет в телефонной книге.");
+//        ConsoleHelper.writeMessage("Введите имя абонента для номера “" + phone + "”:");
+//        addContact(ConsoleHelper.readString(), phone);
+//        ConsoleHelper.writeMessage("Контакт сохранен!");
+    //ConsoleHelper.writeMessage(map.get());
+    //}
+
 
     public Set<String> getAllContacts() {
         // TODO формат одного контакта "Имя - Телефон"
         // TODO если контактов нет в телефонной книге - вернуть пустой TreeSet
-        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
-            ConsoleHelper.writeMessage(entry.getKey() + " - " + entry.getValue());
+//        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
+//            ConsoleHelper.writeMessage(entry.getKey() + " - " + entry.getValue());
+//        }
+        if(map.isEmpty()){
+            return new TreeSet<>();
         }
+        return map.entrySet().stream()
+                .map(entry -> entry.getKey() + " - " + String.join(", ", entry.getValue()))
+                .collect(Collectors.toSet());
 
-        return new TreeSet<>();
+
     }
 
     public boolean isSName(String name) {
