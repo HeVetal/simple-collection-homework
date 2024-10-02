@@ -1,7 +1,7 @@
 package com.company;
 
 public interface Constants {
-    public static final String LIST = "LIST";
+    String LIST = "LIST";
     String ENTER_NAME_PHONE_COMMAND = "Введите номер, имя или команду:";
     String NOT_NAME_IN_BOOK = "Такого имени в телефонной книге нет.";
     String ENTER_PHONE = "Введите номер телефона для абонента “";

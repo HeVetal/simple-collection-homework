@@ -14,7 +14,7 @@ public class TodoList {
     public void add(int index, String todo) {
         // TODO: добавьте дело на указанный индекс,
         //  проверьте возможность добавления
-        if (checkIndex(index)) {
+        if (index < list.size() -1) {
             list.add(index, todo);
         }
     }
