@@ -9,11 +9,36 @@ public class CoolNumbers {
 
     public static List<String> generateCoolNumbers() {
         List<String> listCoolNumbers = new ArrayList<>();
-        for (int i = 0; i < 2000001; i++) {
-            String coolNumber = generateCoolNumber();
-            if (!generateCoolNumber().contains(coolNumber)) {
-                listCoolNumbers.add(coolNumber);
+//        for (int i = 0; i < 2000001; i++) {
+//            String coolNumber = generateCoolNumber();
+//            if (!generateCoolNumber().contains(coolNumber)) {
+//                listCoolNumbers.add(coolNumber);
+//            }
+//        }
+        //String coolNumber = "";
+        StringBuilder coolNumber = new StringBuilder();
+        int number = 0;
+        int reg = 0;
+        for (int i = 0; i < 2000000; i++) {
+            coolNumber.append(letters.charAt(randomNumber(letters.length() - 1)));
+            coolNumber.append(letters.charAt(randomNumber(letters.length() - 1)));
+            number = randomNumber(9);
+            coolNumber.append(number);
+            coolNumber.append(number);
+            coolNumber.append(number);
+            coolNumber.append(letters.charAt(randomNumber(letters.length() - 1)));
+            reg = randomNumber(199);
+            if (reg < 10) {
+                coolNumber.append("0").append(reg);
             }
+            coolNumber.append(reg);
+            System.out.println(coolNumber);
+            if (listCoolNumbers.contains(coolNumber)) {
+                coolNumber = new StringBuilder();
+                i--;
+            }
+            listCoolNumbers.add(coolNumber.toString());
+            coolNumber = new StringBuilder();
         }
         return listCoolNumbers;
     }
@@ -47,32 +72,31 @@ public class CoolNumbers {
     }
 
 
-
     private static int randomNumber(int number) {
         return (int) (Math.random() * number) + 1;
     }
-
-    private static String generaNumber() {
-        int i = randomNumber(9);
-        String number = "" + i + i + i;
-        return number;
-    }
-
-    private static String generateRegion() {
-        int i = randomNumber(199);
-        if (i < 10) {
-            return "0" + i;
-        }
-        return "" + i;
-    }
-
-    private static String generateLetter() {
-        char c = letters.charAt(randomNumber(letters.length() - 1));
-        return String.valueOf(c);
-    }
-
-    private static String generateCoolNumber() {
-        return generateLetter() + generaNumber() +
-                generateLetter() + generateLetter() + generateRegion();
-    }
+//
+//    private static String generaNumber() {
+//        int i = randomNumber(9);
+//        String number = "" + i + i + i;
+//        return number;
+//    }
+//
+//    private static String generateRegion() {
+//        int i = randomNumber(199);
+//        if (i < 10) {
+//            return "0" + i;
+//        }
+//        return "" + i;
+//    }
+//
+//    private static String generateLetter() {
+//        char c = letters.charAt(randomNumber(letters.length() - 1));
+//        return String.valueOf(c);
+//    }
+//
+//    private static String generateCoolNumber() {
+//        return generateLetter() + generaNumber() +
+//                generateLetter() + generateLetter() + generateRegion();
+//    }
 }
