@@ -6,6 +6,10 @@ import java.util.List;
 public class TodoList {
     private List<String> list = new ArrayList<>();
 
+    public List<String> getList() {
+        return list;
+    }
+
     public void add(String todo) {
         // TODO: добавьте переданное дело в конец списка
         list.add(todo);
@@ -14,15 +18,17 @@ public class TodoList {
     public void add(int index, String todo) {
         // TODO: добавьте дело на указанный индекс,
         //  проверьте возможность добавления
-        if (index < list.size() -1) {
+        if (index < list.size() - 1) {
             list.add(index, todo);
+        } else {
+            list.add(todo);
         }
     }
 
     public void edit(int index, String todo) {
         // TODO: заменить дело на index переданным todo индекс,
         //  проверьте возможность изменения
-        if (checkIndex(index)) {
+        if (index >= 0 && index < list.size()) {
             list.set(index, todo);
         }
     }
@@ -41,7 +47,7 @@ public class TodoList {
     }
 
     private boolean checkIndex(int index) {
-        return index > 0 && index < list.size() - 1;
+        return index >= 0 && index < list.size() - 1;
     }
 
 }
